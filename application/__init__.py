@@ -5,7 +5,11 @@ app.py
 Created by dn on 2011-12-08.
 Copyright (c) 2011 shubz. All rights reserved.
 """
+import sys
+import os
+import logging
 from flask import Flask
+from config import load_config
 import controllers
 
 DEFAULT_APP_NAME = ''
@@ -21,6 +25,8 @@ def create_app(config=None, modules=None):
         modules = DEFAULT_MODULES
 
     app = Flask(__name__)
+    config = load_config()
+    app.config.from_object(config)
     register_modules(app, modules)
 
     return app
