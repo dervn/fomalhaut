@@ -10,30 +10,43 @@ import os
 import logging
 from flask import Flask
 from config import load_config
-import controllers
-
-DEFAULT_APP_NAME = ''
-
-DEFAULT_MODULES = (
-    (controllers.frontend, ""),
-    (controllers.account, "/account"),
-)
 
 def create_app(config=None, modules=None):
-
-    if modules is None:
-        modules = DEFAULT_MODULES
-
     app = Flask(__name__)
     config = load_config()
     app.config.from_object(config)
-    register_modules(app, modules)
+
+    register_db(app)
+    register_routes(app)
+    register_jinja(app)
+    register_logger(app)
+    #register_error_handle(app)
 
     return app
 
-def register_modules(app, modules):
-    for module, url_prefix in modules:
-        app.register_module(module, url_prefix=url_prefix)
+def register_jinja(app):
+    pass
 
-if __name__ == "__main__":
-    app.run()
+def register_logger(app):
+    '''Send error log to admin by smtp'''
+    pass
+
+def register_db(app):
+    from .models import db
+    db.init_app(app)
+
+def register_routes(app):
+    '''Register routes'''
+    from . import controllers
+    from flask.blueprints import Blueprint
+    for module in _import_submodules_from_package(controllers):
+        bp = getattr(module, 'bp')
+        if bp and isinstance(bp, Blueprint):
+            app.register_blueprint(bp)
+
+def _import_submodules_from_package(package):
+    import pkgutil
+    modules = []
+    for importer, modname, ispkg in pkgutil.iter_modules(package.__path__, prefix=package.__name__ + "."):
+        modules.append(__import__(modname, fromlist="dummy"))
+    return modules
