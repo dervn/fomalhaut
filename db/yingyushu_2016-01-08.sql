@@ -6,7 +6,8 @@
 # https://github.com/sequelpro/sequelpro
 #
 # Host: 127.0.0.1 (MySQL 5.6.13)
-# Database: yingyushu
+# Database: fomalhaut
+
 # Generation Time: 2016-01-08 11:02:56 +0000
 # ************************************************************
 
