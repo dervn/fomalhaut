@@ -26,4 +26,4 @@ npm install react-dom --save
 
 npm install jsx-loader --save-dev
 
-webpack //编译JS文件
+webpack -p //编译JS文件
