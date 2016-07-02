@@ -5,4 +5,4 @@ from .default import Config
 class DevelopmentConfig(Config):
     DEBUG = True
     # Db config
-    SQLALCHEMY_DATABASE_URI = "mysql://root:123@localhost/fomalhaut"
+    SQLALCHEMY_DATABASE_URI = "mysql://root:12345678@localhost/fomalhaut"
