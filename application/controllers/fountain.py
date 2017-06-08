@@ -3,8 +3,11 @@
 
 from flask import render_template, Blueprint, g
 
-bp = Blueprint('site', __name__)
+from ..models import db, Fountain
 
-@bp.route('/')
+bp = Blueprint('fountain', __name__)
+
+@bp.route('/fountain')
 def index():
-    return render_template("index.html")
+    data = Fountain.query.order_by(db.func.random()).first()
+    return render_template("fountain/index.html", data=data)

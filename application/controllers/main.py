@@ -7,7 +7,7 @@ Copyright (c) 2011 shubz. All rights reserved.
 """
 from flask import render_template, Blueprint, g
 
-bp = Blueprint('site', __name__)
+bp = Blueprint('main', __name__)
 
 @bp.route('/')
 def index():
