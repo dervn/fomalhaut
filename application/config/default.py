@@ -23,6 +23,9 @@ class Config(object):
     # https://pythonhosted.org/Flask-SQLAlchemy/config.html#connection-uri-format
     # http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html#database-urls
     SQLALCHEMY_DATABASE_URI = "mysql://root:123@localhost/fomalhaut"
+    SQLALCHEMY_BINDS = {
+        'fomalhaut': 'mysql://root:123@localhost/fomalhaut',
+    }
 
     # SMTP config
     MAIL_SERVER = ''
